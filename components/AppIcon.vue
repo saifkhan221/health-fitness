@@ -33,6 +33,7 @@ const ICONS: Record<string, string> = {
   check: '<path d="m5 12 5 5 9-9"/>',
   wallet: '<path d="M20 7H4a2 2 0 0 1 0-4h13a1 1 0 0 1 1 1v3"/><path d="M4 7h16a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/>',
   scale: '<path d="M12 3v18M5 21h14"/><path d="m5 7 3.5 5h-7L5 7zm14 0 3.5 5h-7L19 7z"/><path d="M5 7h14"/>',
+  copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
 }
 </script>
 

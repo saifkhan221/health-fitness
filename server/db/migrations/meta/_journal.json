@@ -8,6 +8,13 @@
       "when": 1784269024823,
       "tag": "0000_nebulous_valkyrie",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784280116396,
+      "tag": "0001_curly_blizzard",
+      "breakpoints": true
     }
   ]
 }

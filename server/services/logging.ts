@@ -54,6 +54,7 @@ export async function createLogEntry(userId: string, input: CreateEntryInput) {
         proteinG: Number(ing.proteinG),
         carbsG: Number(ing.carbsG),
         fatG: Number(ing.fatG),
+        fiberG: Number(ing.fiberG),
       },
       grams,
     )
@@ -66,8 +67,9 @@ export async function createLogEntry(userId: string, input: CreateEntryInput) {
       proteinG: round2(acc.proteinG + r.nutrition.proteinG),
       carbsG: round2(acc.carbsG + r.nutrition.carbsG),
       fatG: round2(acc.fatG + r.nutrition.fatG),
+      fiberG: round2(acc.fiberG + r.nutrition.fiberG),
     }),
-    { kcal: 0, proteinG: 0, carbsG: 0, fatG: 0 },
+    { kcal: 0, proteinG: 0, carbsG: 0, fatG: 0, fiberG: 0 },
   )
 
   const status = input.status ?? 'logged'
@@ -86,6 +88,7 @@ export async function createLogEntry(userId: string, input: CreateEntryInput) {
         proteinG: String(totals.proteinG),
         carbsG: String(totals.carbsG),
         fatG: String(totals.fatG),
+        fiberG: String(totals.fiberG),
       })
       .returning()
 
@@ -101,6 +104,7 @@ export async function createLogEntry(userId: string, input: CreateEntryInput) {
           proteinG: String(r.nutrition.proteinG),
           carbsG: String(r.nutrition.carbsG),
           fatG: String(r.nutrition.fatG),
+          fiberG: String(r.nutrition.fiberG),
         })),
       )
     }
@@ -117,4 +121,82 @@ export async function deleteLogEntry(userId: string, entryId: string) {
     .returning({ id: schema.mealLogEntries.id })
   if (!deleted) throw createError({ statusCode: 404, statusMessage: 'Entry not found' })
   return deleted
+}
+
+/**
+ * Duplicate an entry (with its item snapshots) onto other dates, e.g. copying
+ * Monday's lunch onto Wednesday. Copies always land as 'planned' — copying an
+ * already-eaten meal means "plan to eat this again", not "I already ate it
+ * there too" — so it never touches inventory/spend until confirmed.
+ */
+export async function copyLogEntry(userId: string, entryId: string, dates: string[]) {
+  const db = useDb()
+
+  const [source] = await db
+    .select()
+    .from(schema.mealLogEntries)
+    .where(and(eq(schema.mealLogEntries.id, entryId), eq(schema.mealLogEntries.userId, userId)))
+  if (!source) throw createError({ statusCode: 404, statusMessage: 'Entry not found' })
+
+  const sourceItems = await db
+    .select()
+    .from(schema.mealLogItems)
+    .where(eq(schema.mealLogItems.entryId, entryId))
+
+  return await db.transaction(async (tx) => {
+    const created = []
+    for (const entryDate of dates) {
+      const [entry] = await tx
+        .insert(schema.mealLogEntries)
+        .values({
+          userId,
+          entryDate,
+          mealType: source.mealType,
+          status: 'planned',
+          mealId: source.mealId,
+          loggedAt: null,
+          kcal: source.kcal,
+          proteinG: source.proteinG,
+          carbsG: source.carbsG,
+          fatG: source.fatG,
+          fiberG: source.fiberG,
+          costPaise: 0,
+        })
+        .returning()
+
+      if (sourceItems.length) {
+        await tx.insert(schema.mealLogItems).values(
+          sourceItems.map((it) => ({
+            entryId: entry.id,
+            ingredientId: it.ingredientId,
+            qtyCanonical: it.qtyCanonical,
+            displayQty: it.displayQty,
+            displayUnit: it.displayUnit,
+            kcal: it.kcal,
+            proteinG: it.proteinG,
+            carbsG: it.carbsG,
+            fatG: it.fatG,
+            fiberG: it.fiberG,
+            micros: it.micros,
+            costPaise: null,
+            estimatedCost: false,
+          })),
+        )
+      }
+      created.push(entry)
+    }
+    return created
+  })
+}
+
+/** Flip a planned entry to logged — "I ate this". No-op if already logged. */
+export async function confirmLogEntry(userId: string, entryId: string) {
+  const db = useDb()
+  const [updated] = await db
+    .update(schema.mealLogEntries)
+    .set({ status: 'logged', loggedAt: new Date() })
+    .where(and(eq(schema.mealLogEntries.id, entryId), eq(schema.mealLogEntries.userId, userId)))
+    .returning()
+  if (!updated) throw createError({ statusCode: 404, statusMessage: 'Entry not found' })
+  return updated
 }

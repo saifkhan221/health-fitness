@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
     .where(inArray(schema.ingredientUnits.ingredientId, ingIds))
   const byId = new Map(ings.map((r) => [r.id, r]))
 
-  let totals = { kcal: 0, proteinG: 0, carbsG: 0, fatG: 0 }
+  let totals = { kcal: 0, proteinG: 0, carbsG: 0, fatG: 0, fiberG: 0 }
   const resolved = body.items.map((item) => {
     const ing = byId.get(item.ingredientId)
     if (!ing) throw createError({ statusCode: 400, statusMessage: `Unknown ingredient ${item.ingredientId}` })
@@ -39,7 +39,13 @@ export default defineEventHandler(async (event) => {
     const qtyCanonical = toCanonical(item.qty, item.unit, cu, units.filter((u) => u.ingredientId === ing.id))
     const grams = toGrams(qtyCanonical, cu, { pieceWeightG: ing.pieceWeightG, densityGPerMl: ing.densityGPerMl })
     const n = scaleNutrition(
-      { kcal: Number(ing.kcal), proteinG: Number(ing.proteinG), carbsG: Number(ing.carbsG), fatG: Number(ing.fatG) },
+      {
+        kcal: Number(ing.kcal),
+        proteinG: Number(ing.proteinG),
+        carbsG: Number(ing.carbsG),
+        fatG: Number(ing.fatG),
+        fiberG: Number(ing.fiberG),
+      },
       grams,
     )
     totals = {
@@ -47,6 +53,7 @@ export default defineEventHandler(async (event) => {
       proteinG: round2(totals.proteinG + n.proteinG),
       carbsG: round2(totals.carbsG + n.carbsG),
       fatG: round2(totals.fatG + n.fatG),
+      fiberG: round2(totals.fiberG + n.fiberG),
     }
     return { item, qtyCanonical }
   })
@@ -62,6 +69,7 @@ export default defineEventHandler(async (event) => {
         proteinG: String(totals.proteinG),
         carbsG: String(totals.carbsG),
         fatG: String(totals.fatG),
+        fiberG: String(totals.fiberG),
       })
       .returning()
 

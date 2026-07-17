@@ -16,3 +16,16 @@ export function todayISO(): string {
 export function formatPaise(paise: number): string {
   return `₹${(paise / 100).toFixed(2).replace(/\.00$/, '')}`
 }
+
+export function addDays(iso: string, delta: number): string {
+  const [y, m, d] = iso.split('-').map(Number)
+  const dt = new Date(y, m - 1, d + delta)
+  return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`
+}
+
+/** Monday of the week containing the given ISO date. */
+export function mondayOf(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number)
+  const dow = (new Date(y, m - 1, d).getDay() + 6) % 7 // Mon=0..Sun=6
+  return addDays(iso, -dow)
+}

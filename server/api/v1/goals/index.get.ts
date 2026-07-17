@@ -3,7 +3,7 @@ import { useDb, schema } from '../../../db/client'
 import { requireUserId } from '../../../utils/session'
 
 // Current goals, with sensible defaults until the user sets their own.
-const DEFAULTS = { kcal: 2000, protein_g: 90, carbs_g: 250, fat_g: 65 }
+const DEFAULTS = { kcal: 2000, protein_g: 90, carbs_g: 250, fat_g: 65, fiber_g: 30 }
 
 export default defineEventHandler(async (event) => {
   const userId = await requireUserId(event)

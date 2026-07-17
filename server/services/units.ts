@@ -63,7 +63,7 @@ export function toGrams(
 
 /** Nutrition for a quantity, from per-100g values. */
 export function scaleNutrition(
-  per100g: { kcal: number; proteinG: number; carbsG: number; fatG: number },
+  per100g: { kcal: number; proteinG: number; carbsG: number; fatG: number; fiberG: number },
   grams: number,
 ) {
   const f = grams / 100
@@ -72,6 +72,7 @@ export function scaleNutrition(
     proteinG: round2(per100g.proteinG * f),
     carbsG: round2(per100g.carbsG * f),
     fatG: round2(per100g.fatG * f),
+    fiberG: round2(per100g.fiberG * f),
   }
 }
 
