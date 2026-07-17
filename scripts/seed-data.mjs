@@ -1,0 +1,147 @@
+// Seed ingredients: common Indian kitchen staples.
+// Nutrition per 100 g raw (per 100 ml for liquids), approximate label/USDA-derived values.
+// Format: [name, category, canonicalUnit, kcal, protein, carbs, fat, fiber, extra]
+// extra: { pieceWeightG, density, units: [[unitName, qtyCanonical], ...] }
+
+export const INGREDIENTS = [
+  // --- Grains & staples ---
+  ['Rice (white, raw)', 'grain', 'g', 365, 7.1, 80, 0.7, 1.3, { units: [['cup', 200], ['katori (cooked)', 60]] }],
+  ['Rice (brown, raw)', 'grain', 'g', 370, 7.9, 77, 2.9, 3.5, {}],
+  ['Basmati rice (raw)', 'grain', 'g', 356, 8.1, 78, 0.7, 1.0, { units: [['cup', 200]] }],
+  ['Wheat flour (atta)', 'grain', 'g', 341, 12.1, 71, 1.7, 11, { units: [['cup', 120]] }],
+  ['Maida (refined flour)', 'grain', 'g', 364, 10.3, 76, 1.0, 2.7, {}],
+  ['Sooji / Rava (semolina)', 'grain', 'g', 360, 12.7, 73, 1.1, 3.9, {}],
+  ['Poha (flattened rice)', 'grain', 'g', 361, 6.6, 83, 1.2, 2.0, { units: [['cup', 90]] }],
+  ['Oats (rolled)', 'grain', 'g', 389, 16.9, 66, 6.9, 10.6, { units: [['cup', 90]] }],
+  ['Ragi flour', 'grain', 'g', 336, 7.3, 72, 1.3, 11.5, {}],
+  ['Besan (gram flour)', 'grain', 'g', 387, 22.4, 58, 6.7, 10.8, {}],
+  ['Bread (white)', 'grain', 'piece', 265, 9.0, 49, 3.2, 2.7, { pieceWeightG: 25, units: [['slice', 1]] }],
+  ['Bread (brown/whole wheat)', 'grain', 'piece', 247, 12.5, 41, 3.4, 6.0, { pieceWeightG: 25, units: [['slice', 1]] }],
+  ['Roti / Chapati (homemade)', 'prepared', 'piece', 297, 11, 60, 2.5, 9, { pieceWeightG: 40, units: [['small', 0.75], ['large', 1.5]] }],
+  ['Idli', 'prepared', 'piece', 132, 4.0, 28, 0.4, 0.9, { pieceWeightG: 60 }],
+  ['Dosa (plain)', 'prepared', 'piece', 168, 4.5, 29, 3.7, 1.2, { pieceWeightG: 85 }],
+  ['Vermicelli (semiya)', 'grain', 'g', 355, 9.7, 78, 0.5, 1.6, {}],
+  ['Daliya (broken wheat)', 'grain', 'g', 342, 12, 70, 1.5, 12.5, {}],
+
+  // --- Dals & legumes (raw) ---
+  ['Toor dal (arhar)', 'dal', 'g', 343, 22.3, 63, 1.5, 15, { units: [['katori (cooked)', 35]] }],
+  ['Moong dal (yellow, split)', 'dal', 'g', 348, 24.5, 60, 1.2, 8.2, { units: [['katori (cooked)', 35]] }],
+  ['Masoor dal (red lentil)', 'dal', 'g', 352, 24.6, 63, 1.1, 10.7, { units: [['katori (cooked)', 35]] }],
+  ['Chana dal', 'dal', 'g', 360, 21.6, 60, 5.3, 12.2, {}],
+  ['Urad dal (split)', 'dal', 'g', 341, 25.2, 59, 1.6, 18.3, {}],
+  ['Whole moong (green gram)', 'dal', 'g', 347, 23.9, 63, 1.2, 16.3, { units: [['cup', 200]] }],
+  ['Chickpeas (kabuli chana, raw)', 'dal', 'g', 378, 20.5, 63, 6.0, 12.2, { units: [['cup', 200]] }],
+  ['Kala chana (raw)', 'dal', 'g', 360, 22, 61, 5.2, 17.1, {}],
+  ['Rajma (kidney beans, raw)', 'dal', 'g', 333, 24, 60, 0.8, 24.9, { units: [['cup', 190]] }],
+  ['Soya chunks', 'dal', 'g', 345, 52, 33, 0.5, 13, { units: [['cup', 50]] }],
+  ['Peanuts (raw)', 'nuts', 'g', 567, 25.8, 16, 49.2, 8.5, { units: [['handful', 30]] }],
+
+  // --- Vegetables ---
+  ['Onion', 'vegetable', 'g', 40, 1.1, 9.3, 0.1, 1.7, { units: [['small', 70], ['medium', 110], ['large', 160]] }],
+  ['Tomato', 'vegetable', 'g', 18, 0.9, 3.9, 0.2, 1.2, { units: [['small', 60], ['medium', 90], ['large', 140]] }],
+  ['Potato', 'vegetable', 'g', 77, 2.0, 17, 0.1, 2.1, { units: [['small', 90], ['medium', 150], ['large', 250]] }],
+  ['Green chilli', 'vegetable', 'g', 40, 2.0, 9.5, 0.2, 1.5, { units: [['piece', 5]] }],
+  ['Ginger', 'vegetable', 'g', 80, 1.8, 18, 0.8, 2.0, { units: [['inch', 8], ['tsp (paste)', 5]] }],
+  ['Garlic', 'vegetable', 'g', 149, 6.4, 33, 0.5, 2.1, { units: [['clove', 4], ['tsp (paste)', 5]] }],
+  ['Cauliflower', 'vegetable', 'g', 25, 1.9, 5, 0.3, 2.0, { units: [['medium head', 500]] }],
+  ['Cabbage', 'vegetable', 'g', 25, 1.3, 5.8, 0.1, 2.5, {}],
+  ['Spinach (palak)', 'vegetable', 'g', 23, 2.9, 3.6, 0.4, 2.2, { units: [['bunch', 250]] }],
+  ['Methi leaves (fenugreek)', 'vegetable', 'g', 49, 4.4, 6, 0.9, 1.1, { units: [['bunch', 200]] }],
+  ['Bhindi (okra)', 'vegetable', 'g', 33, 1.9, 7.5, 0.2, 3.2, {}],
+  ['Brinjal (eggplant)', 'vegetable', 'g', 25, 1.0, 5.9, 0.2, 3.0, { units: [['medium', 250]] }],
+  ['Bottle gourd (lauki)', 'vegetable', 'g', 14, 0.6, 3.4, 0.02, 0.5, { units: [['medium', 500]] }],
+  ['Bitter gourd (karela)', 'vegetable', 'g', 17, 1.0, 3.7, 0.2, 2.8, { units: [['medium', 120]] }],
+  ['Ridge gourd (turai)', 'vegetable', 'g', 20, 1.2, 4.4, 0.1, 2.0, {}],
+  ['Pumpkin (kaddu)', 'vegetable', 'g', 26, 1.0, 6.5, 0.1, 0.5, {}],
+  ['Carrot', 'vegetable', 'g', 41, 0.9, 9.6, 0.2, 2.8, { units: [['medium', 60]] }],
+  ['Beetroot', 'vegetable', 'g', 43, 1.6, 9.6, 0.2, 2.8, { units: [['medium', 110]] }],
+  ['Cucumber', 'vegetable', 'g', 15, 0.7, 3.6, 0.1, 0.5, { units: [['medium', 200]] }],
+  ['Capsicum (green)', 'vegetable', 'g', 20, 0.9, 4.6, 0.2, 1.7, { units: [['medium', 120]] }],
+  ['French beans', 'vegetable', 'g', 31, 1.8, 7, 0.2, 2.7, {}],
+  ['Green peas (fresh)', 'vegetable', 'g', 81, 5.4, 14.5, 0.4, 5.7, { units: [['cup', 145]] }],
+  ['Sweet corn (kernels)', 'vegetable', 'g', 86, 3.3, 19, 1.4, 2.7, { units: [['cup', 165]] }],
+  ['Radish (mooli)', 'vegetable', 'g', 16, 0.7, 3.4, 0.1, 1.6, { units: [['medium', 150]] }],
+  ['Drumstick (moringa pods)', 'vegetable', 'g', 37, 2.1, 8.5, 0.2, 3.2, { units: [['piece', 60]] }],
+  ['Coriander leaves', 'vegetable', 'g', 23, 2.1, 3.7, 0.5, 2.8, { units: [['bunch', 100], ['tbsp (chopped)', 4]] }],
+  ['Mint leaves (pudina)', 'vegetable', 'g', 44, 3.3, 8.4, 0.7, 6.8, { units: [['bunch', 80]] }],
+  ['Curry leaves', 'vegetable', 'g', 108, 6.1, 18.7, 1.0, 6.4, { units: [['sprig', 2]] }],
+  ['Mushroom (button)', 'vegetable', 'g', 22, 3.1, 3.3, 0.3, 1.0, { units: [['pack (200g)', 200]] }],
+
+  // --- Fruits ---
+  ['Banana', 'fruit', 'piece', 89, 1.1, 22.8, 0.3, 2.6, { pieceWeightG: 120, units: [['small', 0.7], ['large', 1.4]] }],
+  ['Apple', 'fruit', 'piece', 52, 0.3, 13.8, 0.2, 2.4, { pieceWeightG: 180 }],
+  ['Mango', 'fruit', 'piece', 60, 0.8, 15, 0.4, 1.6, { pieceWeightG: 200 }],
+  ['Orange', 'fruit', 'piece', 47, 0.9, 11.8, 0.1, 2.4, { pieceWeightG: 130 }],
+  ['Papaya', 'fruit', 'g', 43, 0.5, 10.8, 0.3, 1.7, { units: [['cup (cubed)', 145]] }],
+  ['Pomegranate', 'fruit', 'piece', 83, 1.7, 18.7, 1.2, 4.0, { pieceWeightG: 250, units: [['cup (arils)', 0.7]] }],
+  ['Grapes', 'fruit', 'g', 69, 0.7, 18.1, 0.2, 0.9, { units: [['cup', 150]] }],
+  ['Watermelon', 'fruit', 'g', 30, 0.6, 7.6, 0.2, 0.4, { units: [['cup (cubed)', 150]] }],
+  ['Guava', 'fruit', 'piece', 68, 2.6, 14.3, 1.0, 5.4, { pieceWeightG: 120 }],
+  ['Lemon', 'fruit', 'piece', 29, 1.1, 9.3, 0.3, 2.8, { pieceWeightG: 60, units: [['tbsp (juice)', 0.25]] }],
+  ['Coconut (fresh)', 'fruit', 'g', 354, 3.3, 15.2, 33.5, 9.0, { units: [['cup (grated)', 80]] }],
+  ['Dates (khajur)', 'fruit', 'piece', 282, 2.5, 75, 0.4, 8.0, { pieceWeightG: 8 }],
+
+  // --- Dairy & eggs ---
+  ['Milk (full cream)', 'dairy', 'ml', 62, 3.2, 4.8, 3.5, 0, { density: 1.03, units: [['glass', 250], ['cup', 240]] }],
+  ['Milk (toned)', 'dairy', 'ml', 48, 3.1, 4.7, 1.5, 0, { density: 1.03, units: [['glass', 250]] }],
+  ['Curd / Dahi (whole milk)', 'dairy', 'g', 61, 3.5, 4.7, 3.3, 0, { units: [['katori', 100], ['cup', 245]] }],
+  ['Paneer', 'dairy', 'g', 296, 20, 4.5, 22, 0, { units: [['cube', 15]] }],
+  ['Cheese (processed)', 'dairy', 'piece', 330, 20, 5, 26, 0, { pieceWeightG: 20, units: [['slice', 1], ['cube', 0.9]] }],
+  ['Butter', 'dairy', 'g', 717, 0.9, 0.1, 81, 0, { units: [['tbsp', 14], ['tsp', 5]] }],
+  ['Ghee', 'oil', 'ml', 900, 0, 0, 100, 0, { density: 0.91, units: [['tbsp', 15], ['tsp', 5]] }],
+  ['Egg (whole)', 'protein', 'piece', 155, 13, 1.1, 11, 0, { pieceWeightG: 50 }],
+  ['Egg white', 'protein', 'piece', 52, 10.9, 0.7, 0.2, 0, { pieceWeightG: 33 }],
+  ['Buttermilk (chaas)', 'dairy', 'ml', 19, 1.5, 2.0, 0.5, 0, { density: 1.01, units: [['glass', 250]] }],
+
+  // --- Meat & fish ---
+  ['Chicken breast (raw)', 'protein', 'g', 120, 22.5, 0, 2.6, 0, {}],
+  ['Chicken (curry cut, raw)', 'protein', 'g', 214, 18.6, 0, 15.1, 0, {}],
+  ['Mutton (raw)', 'protein', 'g', 294, 17, 0, 21, 0, {}],
+  ['Fish (rohu, raw)', 'protein', 'g', 97, 16.6, 2.9, 1.4, 0, {}],
+  ['Prawns (raw)', 'protein', 'g', 71, 13.6, 0.9, 1.0, 0, {}],
+
+  // --- Oils ---
+  ['Sunflower oil', 'oil', 'ml', 884, 0, 0, 100, 0, { density: 0.92, units: [['tbsp', 15], ['tsp', 5]] }],
+  ['Mustard oil', 'oil', 'ml', 884, 0, 0, 100, 0, { density: 0.91, units: [['tbsp', 15], ['tsp', 5]] }],
+  ['Olive oil', 'oil', 'ml', 884, 0, 0, 100, 0, { density: 0.92, units: [['tbsp', 15], ['tsp', 5]] }],
+  ['Coconut oil', 'oil', 'ml', 892, 0, 0, 100, 0, { density: 0.92, units: [['tbsp', 15], ['tsp', 5]] }],
+  ['Groundnut oil', 'oil', 'ml', 884, 0, 0, 100, 0, { density: 0.91, units: [['tbsp', 15], ['tsp', 5]] }],
+
+  // --- Nuts & dry fruits ---
+  ['Almonds', 'nuts', 'piece', 579, 21.2, 21.6, 49.9, 12.5, { pieceWeightG: 1.2, units: [['handful', 20]] }],
+  ['Cashews', 'nuts', 'piece', 553, 18.2, 30.2, 43.9, 3.3, { pieceWeightG: 1.6, units: [['handful', 18]] }],
+  ['Walnuts', 'nuts', 'g', 654, 15.2, 13.7, 65.2, 6.7, { units: [['half', 2]] }],
+  ['Raisins (kishmish)', 'nuts', 'g', 299, 3.1, 79.2, 0.5, 3.7, { units: [['tbsp', 10]] }],
+
+  // --- Sweeteners & condiments ---
+  ['Sugar', 'condiment', 'g', 387, 0, 100, 0, 0, { units: [['tsp', 4], ['tbsp', 12]] }],
+  ['Jaggery (gur)', 'condiment', 'g', 383, 0.4, 98, 0.1, 0, { units: [['small piece', 10]] }],
+  ['Honey', 'condiment', 'g', 304, 0.3, 82, 0, 0, { units: [['tsp', 7], ['tbsp', 21]] }],
+  ['Salt', 'condiment', 'g', 0, 0, 0, 0, 0, { units: [['tsp', 6], ['pinch', 0.4]] }],
+  ['Tamarind (imli)', 'condiment', 'g', 239, 2.8, 62.5, 0.6, 5.1, { units: [['tbsp (paste)', 15]] }],
+  ['Tomato ketchup', 'condiment', 'g', 101, 1.0, 25, 0.1, 0.3, { units: [['tbsp', 17]] }],
+  ['Pickle (mixed)', 'condiment', 'g', 180, 1.5, 8, 16, 2.0, { units: [['tsp', 8]] }],
+
+  // --- Spices (logged in small amounts but add up) ---
+  ['Turmeric powder', 'spice', 'g', 312, 9.7, 67, 3.2, 22.7, { units: [['tsp', 3]] }],
+  ['Red chilli powder', 'spice', 'g', 282, 13.5, 50, 14.3, 34.8, { units: [['tsp', 2.7]] }],
+  ['Coriander powder', 'spice', 'g', 298, 12.4, 55, 17.8, 41.9, { units: [['tsp', 2]] }],
+  ['Cumin seeds (jeera)', 'spice', 'g', 375, 17.8, 44, 22.3, 10.5, { units: [['tsp', 2.1]] }],
+  ['Mustard seeds', 'spice', 'g', 508, 26.1, 28, 36.2, 12.2, { units: [['tsp', 3.2]] }],
+  ['Garam masala', 'spice', 'g', 379, 15.7, 45, 15.1, 24.9, { units: [['tsp', 2.8]] }],
+  ['Black pepper', 'spice', 'g', 251, 10.4, 64, 3.3, 25.3, { units: [['tsp', 2.3]] }],
+  ['Cardamom', 'spice', 'g', 311, 10.8, 68, 6.7, 28, { units: [['pod', 0.3]] }],
+  ['Hing (asafoetida)', 'spice', 'g', 297, 4.0, 68, 1.1, 4.1, { units: [['pinch', 0.3]] }],
+
+  // --- Beverages & packaged ---
+  ['Tea (black, leaves)', 'beverage', 'g', 1, 0, 0.3, 0, 0, { units: [['tsp', 2]] }],
+  ['Coffee (instant powder)', 'beverage', 'g', 353, 12, 75, 0.5, 0, { units: [['tsp', 2]] }],
+  ['Coconut water', 'beverage', 'ml', 19, 0.7, 3.7, 0.2, 1.1, { density: 1.0, units: [['glass', 250]] }],
+  ['Peanut butter', 'packaged', 'g', 588, 25, 20, 50, 6, { units: [['tbsp', 16]] }],
+  ['Cornflakes', 'packaged', 'g', 357, 7.5, 84, 0.4, 3.3, { units: [['cup', 30]] }],
+  ['Muesli', 'packaged', 'g', 340, 9.7, 66, 5.9, 7.3, { units: [['cup', 85]] }],
+  ['Biscuit (Marie)', 'packaged', 'piece', 443, 7.0, 75, 12.5, 1.5, { pieceWeightG: 6 }],
+  ['Biscuit (Parle-G)', 'packaged', 'piece', 450, 6.6, 77, 12.7, 1.0, { pieceWeightG: 5.7 }],
+  ['Maggi noodles (1 pack)', 'packaged', 'piece', 402, 9.5, 59, 14.4, 3.2, { pieceWeightG: 70 }],
+  ['Whey protein (scoop)', 'packaged', 'piece', 400, 80, 8, 6, 0, { pieceWeightG: 30, units: [['scoop', 1]] }],
+]
